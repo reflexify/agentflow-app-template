@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Case desk (plain HTML)</title>
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 960px; margin: 24px auto; padding: 0 16px; }
+      agentflow-provider { --agentflow-accent: #0f766e; }
+      section { margin-block: 32px; }
+      [hidden] { display: none; }
+    </style>
+  </head>
+  <body>
+    <h1>Case desk, as plain HTML</h1>
+    <p>No framework and no build step: one script tag and the same session as the Case desk app.</p>
+    <p id="signed-out" hidden><a href="/agentflow/auth/login?returnTo=%2Fplain">Sign in</a> to see your work.</p>
+    <p id="lost" hidden></p>
+    <p id="failed" hidden></p>
+    <p id="config-failed" hidden></p>
+    <agentflow-provider base-path="/agentflow">
+      <section>
+        <h2>My tasks</h2>
+        <agentflow-task-inbox></agentflow-task-inbox>
+      </section>
+      <section id="records" hidden>
+        <h2>Records</h2>
+        <agentflow-record-table></agentflow-record-table>
+      </section>
+    </agentflow-provider>
+    <script type="module" src="/elements/agentflow-elements.js"></script>
+    <script type="module">
+      const provider = document.querySelector('agentflow-provider');
+      const show = (id, text) => {
+        const line = document.getElementById(id);
+        if (text) line.textContent = text;
+        line.hidden = false;
+      };
+      const inParens = (code) => (code ? ` (${code})` : '');
+      const signedOut = () => show('signed-out');
+      const lost = (code) => show('lost', `Access to Case desk ended${inParens(code)}.`);
+      const failed = (code) => show('failed', `Case desk couldn't load your session from AgentFlow${inParens(code)}. Reload the page to try again.`);
+      provider.addEventListener('signed-out', signedOut);
+      provider.addEventListener('access-lost', (e) => lost(e.detail.code));
+      provider.addEventListener('request-failed', (e) => {
+        if (provider.dataset.state === 'error') failed(e.detail.code);
+      });
+      provider.addEventListener('task-select', (e) => {
+        location.href = `/#/task/${e.detail.entityId}/${e.detail.recordId}`;
+      });
+      // A provider that settled before these listeners existed fired its event unheard; its data-state still says where it is.
+      if (provider.dataset.state === 'signed-out') signedOut();
+      if (provider.dataset.state === 'access-lost') lost();
+      if (provider.dataset.state === 'error') failed();
+      try {
+        const res = await fetch('/case-desk/config.json');
+        if (!res.ok) throw new Error(`config.json answered ${res.status}`);
+        const config = await res.json();
+        if (config.entityId) {
+          document.querySelector('agentflow-record-table').setAttribute('entity-id', config.entityId);
+          document.getElementById('records').hidden = false;
+        }
+      } catch {
+        show('config-failed', "Case desk can't load its configuration, so its records aren't shown.");
+      }
+    </script>
+  </body>
+</html>
