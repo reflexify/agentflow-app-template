@@ -1,6 +1,6 @@
 {
   "name": "case-desk",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@12.4.1",
@@ -22,15 +22,15 @@
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
-    "@reflexify/agentflow-elements": "github:reflexify/agentflow-sdk#sdk-v0.2.0&path:packages/agentflow-elements",
-    "@reflexify/agentflow-sdk": "github:reflexify/agentflow-sdk#sdk-v0.2.0&path:packages/agentflow-sdk",
+    "@reflexify/agentflow-elements": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-elements",
+    "@reflexify/agentflow-sdk": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-sdk",
     "hono": "^4.13.9",
     "jose": "^6.2.12",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@reflexify/agentflow-app-builder": "github:reflexify/agentflow-sdk#sdk-v0.2.0&path:packages/agentflow-app-builder",
+    "@reflexify/agentflow-app-builder": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-app-builder",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^26.6.2",
     "@types/react": "^19.3.0",

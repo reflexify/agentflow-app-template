@@ -68,7 +68,7 @@ The module's files, in `src/module/`:
 
 Installing asks for `app_users`, the group of the app's users (its label is "Case desk users"). Who may do what comes with the package: everyone in that group may read, list and create cases, may change the cases they opened, and may start "Open a case", which runs as the person who starts it. Its step "Review case" goes to that same person, who decides with **Approve** or **Reject**. When the person who opened the case cannot take the review, it goes to the app's users group, `app_users`, instead.
 
-A role does not come from a group, so give the group's members a role with `entity.read`, `entity.list` and `entity.write`. The package has no trigger, so there is nothing to turn on after the install.
+A role does not come from a group, so give the group's members a role with `entity.read`, `entity.list` and `entity.write`. The package has no trigger, so there is nothing to turn on after the install. This paragraph, and the parts of this file about cases, describe the starter's own objects: rewrite them when your objects replace those.
 
 ## The standalone site
 

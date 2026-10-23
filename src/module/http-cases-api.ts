@@ -1,4 +1,4 @@
-import { AgentFlowError, ok, type AppHost, type components } from '@reflexify/agentflow-sdk';
+import { AgentFlowError, getAppObjects, ok, type AppHost, type components } from '@reflexify/agentflow-sdk';
 import { CasesError, type Case, type CaseStatus, type CasesApi } from './cases-api.js';
 
 type WireRecord = components['schemas']['EntityRecord'];
@@ -36,23 +36,19 @@ async function call<T>(request: Promise<{ data?: T; error?: unknown; response: R
 
 /** The case entity's id in this organization, from the keys the package ships with. A module never hard-codes one. */
 async function caseEntityId(host: Pick<AppHost, 'api'>): Promise<string> {
-  const objects = await call(host.api.GET('/app/objects'));
-  const found = objects.objects.find((o) => o.logical_key === 'entity:case' && (o.state === 'live' || o.state === 'deprecated'));
-  if (!found?.id) throw new CasesError('NOT_INSTALLED', null);
-  return found.id;
+  const objects = getAppObjects(host.api);
+  // A failed load is not kept, so the next call asks again and Try again can recover.
+  await objects.load().catch((error: unknown) => {
+    throw toCasesError(error);
+  });
+  const id = objects.id('entity:case');
+  if (!id) throw new CasesError('NOT_INSTALLED', null);
+  return id;
 }
 
 /** The cases over AgentFlow's published record operations, through the host's client. */
 export function createHttpCasesApi(host: Pick<AppHost, 'api'>): CasesApi {
-  let entity: Promise<string> | null = null;
-  const entityId = () => {
-    // A failed read is asked again next time, so Try again can recover.
-    entity ??= caseEntityId(host).catch((error: unknown) => {
-      entity = null;
-      throw error;
-    });
-    return entity;
-  };
+  const entityId = () => caseEntityId(host);
 
   return {
     async list() {
