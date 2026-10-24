@@ -1,5 +1,7 @@
 # Case desk
 
+> This is the starter template, not a project to rename. After `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To use this copy as your project instead, follow `reference/template-copy.md` in the `agentflow-app-release` skill.
+
 `acme/case-desk` is an AgentFlow app, built with the AgentFlow SDK. It holds:
 
 - **An app package** that AgentFlow installs, described by `config/`. `agentflow-app build` turns `config/` into `package/`, which is committed, so a reviewer reads what ships.

@@ -1,5 +1,7 @@
 # Notes for coding agents
 
+> This is the starter template, not a project to rename. After `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To use this copy as your project instead, follow `reference/template-copy.md` in the `agentflow-app-release` skill.
+
 This project is an AgentFlow app, built with the AgentFlow SDK. `config/` describes an app package, and the builder turns
 it into `package/`.
 `src/module/` is the package's UI module.
@@ -30,11 +32,15 @@ every file under `config/`.
 - `pnpm build` also writes the UI module into `package/ui`: built with Vite, or copied as it is when `ui` in
   `agentflow.app.mjs` names a `prebuilt` folder.
 - `pnpm check`: `agentflow-app build --check`: fails when the committed `package/` is not what `config/` builds.
+  `pnpm check` compares package/ui with the module when package/ui exists (git ignores that folder; `pnpm build`
+  writes it).
 - `pnpm test`: the Vitest tests, if the project has any, then the check.
 - `pnpm typecheck`: TypeScript over the project's `.ts` and `.tsx` files.
-- `pnpm exec agentflow-app types`: writes `src/generated/app.ts`, TypeScript for the package's objects (`LogicalKey`,
-  `EntityFields`, `WorkflowInputs`), from `package/`: run `pnpm build` first. Once the project commits that file, add
-  `&& agentflow-app types --check` to the `test` script, so a stale file fails the tests (`TYPES_STALE`).
+- `pnpm exec agentflow-app types`: TypeScript for the package's objects (`LogicalKey`, `EntityFields`,
+  `WorkflowInputs`), from `package/`: run `pnpm build` first.
+- `src/generated/app.ts` is what `types` writes, and the project commits it. `pnpm test` ends with
+  `agentflow-app types --check`, which fails with `TYPES_STALE` when the file is behind `package/`: after a change
+  under `config/` that adds, renames or removes an object, run `pnpm build`, then `pnpm exec agentflow-app types`.
 - `pnpm demo`: the UI module on in-memory data, at `http://localhost:5174/module.html`.
 - `pnpm exec agentflow-app keygen --key-id <id>`: once per publisher, a signing key in `keys/`.
 - `pnpm seal`: `agentflow-app seal`: signs `package/` into `dist-app/`.

@@ -1,6 +1,6 @@
 {
   "name": "case-desk",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@12.4.1",
@@ -18,19 +18,19 @@
     "start": "pnpm build:site && NODE_ENV=production tsx --env-file-if-exists=.env server/main.ts",
     "demo": "vite --config vite.module.config.ts --open /module.html",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.node.json --noEmit",
-    "test": "vitest run && agentflow-app build --check"
+    "test": "vitest run && agentflow-app build --check && agentflow-app types --check"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",
-    "@reflexify/agentflow-elements": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-elements",
-    "@reflexify/agentflow-sdk": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-sdk",
+    "@reflexify/agentflow-elements": "github:reflexify/agentflow-sdk#sdk-v0.4.0&path:packages/agentflow-elements",
+    "@reflexify/agentflow-sdk": "github:reflexify/agentflow-sdk#sdk-v0.4.0&path:packages/agentflow-sdk",
     "hono": "^4.13.9",
     "jose": "^6.2.12",
     "react": "^19.3.0",
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@reflexify/agentflow-app-builder": "github:reflexify/agentflow-sdk#sdk-v0.3.0&path:packages/agentflow-app-builder",
+    "@reflexify/agentflow-app-builder": "github:reflexify/agentflow-sdk#sdk-v0.4.0&path:packages/agentflow-app-builder",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^26.6.2",
     "@types/react": "^19.3.0",

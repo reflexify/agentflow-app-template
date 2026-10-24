@@ -72,8 +72,8 @@ export function Tooltip(p: Common & { text: string; children: ReactNode }) {
  * implies the rest, and stays whole in the page for a screen reader), with the full form also given as visually hidden text.
  *
  * Never wrap focusable content in it (a control, a link, anything with `tabIndex`): the swap remounts `children`, and
- * focus inside them would drop. For a control, use `Tooltip` in `examples/projects/src/kit/elements.tsx`, which keeps
- * the children's nodes and replays the arrival.
+ * focus inside them would drop. For a control, use a wrapper that moves the children's existing nodes into the
+ * tooltip and replays the pointer's arrival.
  */
 export function LazyTooltip(p: Common & { text: string; children: ReactNode }) {
   const [armed, setArmed] = useState(false);
