@@ -2,7 +2,7 @@ import { fileURLToPath } from 'node:url';
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// The case desk's UI module, for the package's ui/: one ES entry exporting `mount`, its chunks beside it, the
+// The UI module of the case desk, for the package's ui/: one ES entry exporting `mount`, its chunks beside it, the
 // stylesheet inside the script and React bundled, since a host shares nothing with a module but plain data and functions.
 // `agentflow-app build` writes it into package/ui/. `pnpm demo` serves module.html with this same config.
 export default defineConfig({

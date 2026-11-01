@@ -24,7 +24,7 @@ These commands run in the project's folder, after `pnpm install`:
 | `pnpm exec agentflow-app lint` | Sends `package/` to the AgentFlow at `AGENTFLOW_URL` and prints the problems it finds; it stores nothing. |
 | `pnpm exec agentflow-app deploy --wait` | Uploads the sealed package and asks for it to be installed; an admin approves it at the link it prints. |
 
-`pnpm build` also puts the module into `package/ui/` (git ignores that folder).
+`pnpm build` also puts the module into `package/ui/` (git ignores that folder), and `pnpm test` ends with `agentflow-app types --check`, which fails when `src/generated/app.ts` is behind `package/`.
 
 `pnpm demo` serves the Cases screen on in-memory sample data at `http://localhost:5174/module.html`: nothing is sent anywhere, and `?empty` shows no cases, `?fail` a refused create.
 
