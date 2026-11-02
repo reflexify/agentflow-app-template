@@ -11,7 +11,6 @@ export interface MemoryCasesApi extends CasesApi {
 export function createMemoryCasesApi(seed: Case[] = [], opts: { delayMs?: number } = {}): MemoryCasesApi {
   let cases = [...seed];
   let failure: string | null = null;
-  let next = 1;
   const wait = () => new Promise((resolve) => setTimeout(resolve, opts.delayMs ?? 0));
 
   return {
@@ -32,7 +31,8 @@ export function createMemoryCasesApi(seed: Case[] = [], opts: { delayMs?: number
         failure = null;
         throw new CasesError('ENTITY_VALIDATION_RULE_FAILED', reason);
       }
-      const made: Case = { id: `memory-${next++}`, title: input.title, urgent: input.urgent, openedOn: input.openedOn, status: 'open' };
+      // A UUID, as AgentFlow's record ids are: AgentFlow's host ignores a record id of any other shape.
+      const made: Case = { id: crypto.randomUUID(), title: input.title, urgent: input.urgent, openedOn: input.openedOn, status: 'open' };
       cases = [made, ...cases];
       return made;
     },

@@ -1,6 +1,6 @@
 # Case desk
 
-> This is the starter template, not a project to rename. After `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To use this copy as your project instead, follow `reference/template-copy.md` in the `agentflow-app-release` skill.
+> This is the starter template. `init` renames it for you: after `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project, with your names, as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To rename this copy in place instead, so that it becomes your project, follow the `agentflow-app-release` skill's `reference/template-copy.md` (it runs `init` beside the copy and moves the result over it): the SDK repository (reflexify/agentflow-sdk on GitHub) holds it as `claude-plugin/skills/agentflow-app-release/reference/template-copy.md`.
 
 `acme/case-desk` is an AgentFlow app, built with the AgentFlow SDK. It holds:
 
@@ -24,7 +24,9 @@ These commands run in the project's folder, after `pnpm install`:
 | `pnpm exec agentflow-app lint` | Sends `package/` to the AgentFlow at `AGENTFLOW_URL` and prints the problems it finds; it stores nothing. |
 | `pnpm exec agentflow-app deploy --wait` | Uploads the sealed package and asks for it to be installed; an admin approves it at the link it prints. |
 
-`pnpm build` also puts the module into `package/ui/` (git ignores that folder), and `pnpm test` ends with `agentflow-app types --check`, which fails when `src/generated/app.ts` is behind `package/`.
+`pnpm build` also puts the module into `package/ui/` (git ignores that folder).
+
+`pnpm test` ends with `agentflow-app types --check`, which fails when `src/generated/app.ts` is behind `package/`.
 
 `pnpm demo` serves the Cases screen on in-memory sample data at `http://localhost:5174/module.html`: nothing is sent anywhere, and `?empty` shows no cases, `?fail` a refused create.
 
@@ -53,7 +55,7 @@ The module's files, in `src/module/`:
    - `pnpm build` writes `package/` from `config/`.
    - With the module, it also writes the module into `package/ui/`: it builds it with Vite or, when `ui` in `agentflow.app.mjs` names a `prebuilt` folder, copies that folder as it is.
    - `keygen` writes the signing key `keys/dev-acme.pem`, readable only by you, and prints where it is. It never overwrites a key, so leave it out when you seal again. Git ignores `keys/`: never commit it.
-   - `pnpm seal` signs `package/` with the one ed25519 key in `keys/`, into `dist-app/acme-case-desk-<version>.afpkg`. Sealing the same package again changes nothing. A changed package under the same version is refused: raise `version` in `config/package-manifest.json`.
+   - `pnpm seal` signs `package/` with the one ed25519 key in `keys/`, into `dist-app/acme-case-desk-<version>.afpkg`. Sealing the same package again changes nothing, with the same key, even when its JSON files outside `ui/` differ only in member order or spacing (the digest is the same). A changed package under the same version is refused: raise `version` in `config/package-manifest.json`.
 2. **Connect to AgentFlow.** Ask an admin of your organization for a service principal key (`afk_…`), made under **Admin → Service principals** for a principal whose role holds `integration.admin`. Then, in this shell:
    ```bash
    export AGENTFLOW_URL=https://agentflow.example.com

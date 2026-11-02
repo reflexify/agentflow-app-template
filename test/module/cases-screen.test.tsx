@@ -21,8 +21,8 @@ const { CasesScreen } = await import('../../src/module/CasesScreen.js');
 const { mountCases } = await import('../../src/module/mount.js');
 
 const SEED: Case[] = [
-  { id: 'c2', title: 'Refund for a damaged delivery', urgent: true, openedOn: '2026-10-14', status: 'open' },
-  { id: 'c1', title: 'Change the billing address', urgent: false, openedOn: '2026-10-02', status: 'approved' },
+  { id: '0190f8f4-0000-7000-8000-0000000000c2', title: 'Refund for a damaged delivery', urgent: true, openedOn: '2026-10-14', status: 'open' },
+  { id: '0190f8f4-0000-7000-8000-0000000000c1', title: 'Change the billing address', urgent: false, openedOn: '2026-10-02', status: 'approved' },
 ];
 
 /** The texts of the toasts on screen, read from the toast element's own parts. */
@@ -107,7 +107,7 @@ describe('the Cases screen', () => {
       list: () => api.list(),
       create: (input) =>
         new Promise<Case>((resolve) => {
-          held.push(() => resolve({ id: `held-${held.length}`, title: input.title, urgent: input.urgent, openedOn: input.openedOn, status: 'open' }));
+          held.push(() => resolve({ id: crypto.randomUUID(), title: input.title, urgent: input.urgent, openedOn: input.openedOn, status: 'open' }));
         }),
     }));
     await screen.findByText('Change the billing address');
@@ -151,9 +151,9 @@ describe('dates and counts', () => {
   const shown = (iso: string) => [...document.querySelectorAll(`time[datetime="${iso}"]`)].map((t) => t.textContent);
   const tooltips = () => document.querySelectorAll('af-tooltip');
   const SEEDED: Case[] = [
-    { id: 't', title: 'Opened today', urgent: false, openedOn: '2026-10-18', status: 'open' },
-    { id: 'y', title: 'Opened this year', urgent: false, openedOn: '2026-10-02', status: 'open' },
-    { id: 'o', title: 'Opened last year', urgent: false, openedOn: '2025-12-30', status: 'open' },
+    { id: '0190f8f4-0000-7000-8000-0000000000a1', title: 'Opened today', urgent: false, openedOn: '2026-10-18', status: 'open' },
+    { id: '0190f8f4-0000-7000-8000-0000000000a2', title: 'Opened this year', urgent: false, openedOn: '2026-10-02', status: 'open' },
+    { id: '0190f8f4-0000-7000-8000-0000000000a3', title: 'Opened last year', urgent: false, openedOn: '2025-12-30', status: 'open' },
   ];
 
   it('shows a day as the date picker shows it', async () => {

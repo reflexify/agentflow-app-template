@@ -1,6 +1,6 @@
 # Notes for coding agents
 
-> This is the starter template, not a project to rename. After `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To use this copy as your project instead, follow `reference/template-copy.md` in the `agentflow-app-release` skill.
+> This is the starter template. `init` renames it for you: after `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project, with your names, as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To rename this copy in place instead, so that it becomes your project, follow the `agentflow-app-release` skill's `reference/template-copy.md` (it runs `init` beside the copy and moves the result over it): the SDK repository (reflexify/agentflow-sdk on GitHub) holds it as `claude-plugin/skills/agentflow-app-release/reference/template-copy.md`.
 
 This project is an AgentFlow app, built with the AgentFlow SDK. `config/` describes an app package, and the builder turns
 it into `package/`.
@@ -71,4 +71,5 @@ Every `agentflow-app` command takes `--json` for one JSON value on stdout. A ref
 - After every change under `config/`, run `pnpm build` and fix what it refuses: it names the file and the place.
 - In the module: one stylesheet in the shadow root, no listeners on `document`, sizes by container queries, every id
   read from `GET /app/objects`, and every link the browser opens itself made with `host.apiUrl`.
-  `test/module/styles.test.ts` and `test/module/ui-build.test.ts` check this in `pnpm test`.
+  `pnpm test` checks the stylesheet (`test/module/styles.test.ts`) and the built module (`test/module/ui-build.test.ts`)
+  only: search your own code for the rest (`document.`, `window.`, `GET /app/objects`, `host.apiUrl`).

@@ -5,9 +5,9 @@ import { mountCases, type ScreenHost } from './mount.js';
 import { todayIso } from './NewCaseDialog.js';
 
 const SEED: Case[] = [
-  { id: 'demo-3', title: 'Refund for a damaged delivery', urgent: true, openedOn: todayIso(), status: 'open' },
-  { id: 'demo-2', title: 'Change the billing address', urgent: false, openedOn: '2026-10-14', status: 'approved' },
-  { id: 'demo-1', title: 'Second invoice for one order', urgent: false, openedOn: '2026-10-02', status: 'rejected' },
+  { id: '0190f8f4-0000-7000-8000-0000000000d3', title: 'Refund for a damaged delivery', urgent: true, openedOn: todayIso(), status: 'open' },
+  { id: '0190f8f4-0000-7000-8000-0000000000d2', title: 'Change the billing address', urgent: false, openedOn: '2026-10-14', status: 'approved' },
+  { id: '0190f8f4-0000-7000-8000-0000000000d1', title: 'Second invoice for one order', urgent: false, openedOn: '2026-10-02', status: 'rejected' },
 ];
 
 /**
