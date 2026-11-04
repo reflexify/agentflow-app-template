@@ -1,6 +1,6 @@
 # Notes for coding agents
 
-> This is the starter template. `init` renames it for you: after `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project, with your names, as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To rename this copy in place instead, so that it becomes your project, follow the `agentflow-app-release` skill's `reference/template-copy.md` (it runs `init` beside the copy and moves the result over it): the SDK repository (reflexify/agentflow-sdk on GitHub) holds it as `claude-plugin/skills/agentflow-app-release/reference/template-copy.md`.
+> This is the starter template. `init` renames it for you: after `pnpm install`, run `pnpm exec agentflow-app init ../<your-app> --prefix <org>` (or `pnpm exec agentflow-app init ../<your-app> --from <draft.zip>` for a draft from Admin > Apps > Pack) to make your project, with your names, as a new folder. The template keeps a standalone site and a UI module: add `--no-site` to leave the site out, and `--no-ui` to leave the module out. To rename this copy in place instead, so that it becomes your project, follow the `agentflow-app-release` skill's `reference/template-copy.md` (it runs `init` beside the copy and moves the result over it): the SDK repository (reflexify/agentflow-sdk on GitHub) holds it as `claude-plugin/skills/agentflow-app-release/reference/template-copy.md`. The skills are not installed into `node_modules`: add the plugin (AGENTS.md, Skills), or clone that repository at the tag the `@reflexify/agentflow-*` dependencies in `package.json` pin.
 
 This project is an AgentFlow app, built with the AgentFlow SDK. `config/` describes an app package, and the builder turns
 it into `package/`.
@@ -23,8 +23,10 @@ The AgentFlow plugin for Claude Code holds the skills for this work. Add it once
 - `agentflow-ui-module`: the UI module's screens, styles, kit elements, tests and review, against the design guide
   `node_modules/@reflexify/agentflow-elements/DESIGN.md`.
 
-Without the plugin, read the skills themselves: they are Markdown in the SDK repository (reflexify/agentflow-sdk on
-GitHub), one folder each under `claude-plugin/skills/`, a `SKILL.md` and its `reference/`. The builder's README,
+Without the plugin, read the skills themselves. They are Markdown in the SDK repository (reflexify/agentflow-sdk on
+GitHub) and are not installed into `node_modules`: clone it at the tag the `@reflexify/agentflow-*` dependencies in
+`package.json` pin, and open the folder of each skill under `claude-plugin/skills/`, a `SKILL.md` and its `reference/`
+(renaming this project is `claude-plugin/skills/agentflow-app-release/reference/template-copy.md`). The builder's README,
 `node_modules/@reflexify/agentflow-app-builder/README.md`, documents every file under `config/`.
 
 ## Commands

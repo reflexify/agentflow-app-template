@@ -1,0 +1,3 @@
+# The package, the generated types and every config file are compared as text by
+# `agentflow-app build --check` and `types --check`: keep them LF on every OS.
+* text=auto eol=lf
