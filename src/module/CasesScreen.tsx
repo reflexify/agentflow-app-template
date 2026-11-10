@@ -115,7 +115,7 @@ export function CasesScreen({ api, lang, locale, theme }: Props) {
 
       {load.state === 'ready' && load.cases.length > 0 && (
         <div className="panel">
-          <table className="table">
+          <table className="af-table">
             <caption className="sr-only">{t.caption}</caption>
             <thead>
               <tr>

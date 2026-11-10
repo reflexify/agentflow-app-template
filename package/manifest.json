@@ -127,9 +127,6 @@
     "narrow": {}
   },
   "egress": [],
-  "mcp": {
-    "enabled": false
-  },
   "ui": {
     "kind": "module",
     "entry": "ui/index.js",

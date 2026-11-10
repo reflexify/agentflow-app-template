@@ -72,6 +72,8 @@ Every `agentflow-app` command takes `--json` for one JSON value on stdout. A ref
   admin to turn it on after the install).
 - After every change under `config/`, run `pnpm build` and fix what it refuses: it names the file and the place.
 - In the module: one stylesheet in the shadow root, no listeners on `document`, sizes by container queries, every id
-  read from `GET /app/objects`, and every link the browser opens itself made with `host.apiUrl`.
+  read from `GET /app/objects`, and every API address the browser opens itself (a download, an image) made with
+  `host.apiUrl`. A link to one of AgentFlow's own pages is not one: see the UI skill's `routes.md`, "A link to an
+  AgentFlow page".
   `pnpm test` checks the stylesheet (`test/module/styles.test.ts`) and the built module (`test/module/ui-build.test.ts`)
   only: search your own code for the rest (`document.`, `window.`, `GET /app/objects`, `host.apiUrl`).

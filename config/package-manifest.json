@@ -31,7 +31,6 @@
   "audience": "@param:app_users",
   "egress": [],
   "ceiling": { "narrow": {} },
-  "mcp": { "enabled": false },
   "ui": { "kind": "module", "entry": "ui/index.js", "contract": 1 },
   "launcher": {
     "entries": [

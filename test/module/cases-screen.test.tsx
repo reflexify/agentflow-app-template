@@ -41,7 +41,7 @@ function show(seed: Case[], wrap: (api: CasesApi) => CasesApi = (api) => api) {
 async function fillAndCreate(title: string) {
   fireEvent.click(screen.getByText('New case'));
   await waitFor(() => expect(dialogOpen()).toBe(true));
-  fireEvent.change(screen.getByLabelText('Title'), { target: { value: title } });
+  fireEvent.change(screen.getByRole('textbox', { name: 'Title' }), { target: { value: title } });
   fireEvent.click(screen.getByText('Create case'));
 }
 
@@ -67,6 +67,21 @@ describe('the Cases screen', () => {
     expect(dialogOpen()).toBe(false);
   });
 
+  it("submits through af-form: an empty title is the field's error, and a double press creates once", async () => {
+    const api = show(SEED);
+    await screen.findByText('Change the billing address');
+    await fillAndCreate('   ');
+    const field = screen.getByRole('textbox', { name: 'Title' }).closest('af-field') as HTMLElement & { error: string | null };
+    await waitFor(() => expect(field.error).toBe('Enter a title'));
+    expect(api.cases).toHaveLength(2);
+    fireEvent.change(screen.getByRole('textbox', { name: 'Title' }), { target: { value: 'Pressed twice' } });
+    await waitFor(() => expect(field.error).toBeNull());
+    fireEvent.click(screen.getByText('Create case'));
+    fireEvent.click(screen.getByText(/Create case|Creating/));
+    expect(await screen.findByText('Pressed twice')).toBeTruthy();
+    expect(api.cases.filter((c) => c.title === 'Pressed twice')).toHaveLength(1);
+  });
+
   it('says there are no cases yet when the list is empty', async () => {
     show([]);
     expect((await screen.findByText('No cases yet')).tagName).toBe('H2');
@@ -81,7 +96,7 @@ describe('the Cases screen', () => {
     const alert = await screen.findByText('A case with this title is already open');
     expect(alert.getAttribute('role')).toBe('alert');
     expect(alert.closest('af-dialog')).not.toBeNull();
-    expect((screen.getByLabelText('Title') as HTMLInputElement).value).toBe('Refund for a damaged delivery');
+    expect((screen.getByRole('textbox', { name: 'Title' }) as HTMLInputElement).value).toBe('Refund for a damaged delivery');
     expect(dialogOpen()).toBe(true);
     expect(api.cases).toHaveLength(2);
     expect(toasts()).toEqual([]);
@@ -141,7 +156,7 @@ describe('the Cases screen', () => {
     fireEvent.click(screen.getByText('New case'));
     await waitFor(() => expect(dialogOpen()).toBe(true));
     expect(screen.queryByText('A case needs a title')).toBeNull();
-    expect((screen.getByLabelText('Title') as HTMLInputElement).value).toBe('');
+    expect((screen.getByRole('textbox', { name: 'Title' }) as HTMLInputElement).value).toBe('');
     expect(screen.getByText('Create case')).toBeTruthy();
   });
 });
