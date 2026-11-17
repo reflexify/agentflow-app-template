@@ -1,5 +1,5 @@
 import { signIn, signOut } from '@reflexify/agentflow-elements';
-import type {} from '@reflexify/agentflow-elements/jsx';
+import type {} from '@reflexify/agentflow-elements/react';
 import { useEffect, useState } from 'react';
 import { StartCase } from './StartCase.js';
 import { go, parseRoute, type Route } from './route.js';

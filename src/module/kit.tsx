@@ -1,4 +1,5 @@
-import type { AfToastElement, DateChangeDetail, DialogCloseDetail } from '@reflexify/agentflow-elements/jsx';
+import type { AfToastElement, DateChangeDetail, DialogCloseDetail } from '@reflexify/agentflow-elements/kit';
+import type {} from '@reflexify/agentflow-elements/react';
 import '@reflexify/agentflow-elements/kit';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type ReactNode, type RefObject } from 'react';
 
