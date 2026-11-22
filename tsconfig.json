@@ -7,8 +7,6 @@
       "ES2022",
       "DOM"
     ],
-    "declaration": true,
-    "declarationMap": true,
     "sourceMap": true,
     "strict": true,
     "noUnusedLocals": true,
