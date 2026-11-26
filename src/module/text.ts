@@ -12,7 +12,7 @@ const en = {
   emptyTitle: 'No cases yet',
   emptyBody: 'Open a case and it shows up here.',
   loadFailed: "Couldn't load the cases.",
-  notInstalled: 'The case desk package is not installed in this organization.',
+  notInstalled: 'The Case desk package is not installed in this organization.',
   offline: "Couldn't reach AgentFlow. Check your connection.",
   retry: 'Try again',
   retryHint: "AgentFlow didn't say why. Try again in a moment.",

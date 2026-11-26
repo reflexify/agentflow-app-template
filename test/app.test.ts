@@ -185,11 +185,13 @@ describe('an error that escapes a route', () => {
     expect(res.status).toBe(500);
     expect(spy.mock.calls).toEqual([['[case-desk] /agentflow/api/caller: TypeError: fetch failed (ECONNREFUSED)']]);
   });
-  it('never reaches a route, and so logs nothing, for a path with an encoded newline', async () => {
+  it('logs a path with an encoded newline still encoded, on one line', async () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
     const res = await get(createApp(config, { agentflow: throwing(new Error('boom')) }), '/agentflow/auth/login%0A[case-desk]%20forged');
-    expect(res.status).toBe(404);
-    expect(spy).not.toHaveBeenCalled();
+    expect(res.status).toBe(500);
+    const lines = spy.mock.calls.map((call) => String(call[0]));
+    expect(lines).toEqual([expect.stringContaining('/agentflow/auth/login%0A[case-desk]%20forged')]);
+    expect(lines.join('')).not.toMatch(/[\r\n]/);
   });
   it('answers an HTTPException with its own response, not the 500 page, and logs nothing', async () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});

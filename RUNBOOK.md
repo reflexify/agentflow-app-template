@@ -137,7 +137,7 @@ Press **Register**. Case desk is listed with its **Enabled** switch on.
 
 Person B is a second account in the same organization. Leave them out of the audience.
 
-## 4. Install the case desk package
+## 4. Install the Case desk package
 
 Case desk's entity and workflow come from the project's own app package, built from `config/`: the entity Case (`case`) with its create form, and the workflow "Open a case" (`open_case`).
 The package also carries the Cases screen, a UI module that AgentFlow opens inside its own pages.
